@@ -1,49 +1,39 @@
-import React from 'react'
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import './App.css'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import React from "react";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-import Login from './components/login.component'
-import SignUp from './components/signup.component'
+import Login from "./components/login_component";
+import SignUp from "./components/signup_component";
+import UserDetails from "./components/userDetails";
+import Home from "./components/user/home/home";
+import UserLog from "./components/user/userlog/logger";
+import Navbar from "./components/nav/nav";
+import PrevLog from "./components/user/userlog/prevLog";
+
 
 function App() {
+  const isLoggedIn = window.localStorage.getItem("loggedIn");
   return (
     <Router>
+      <Navbar/>
       <div className="App">
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-          <div className="container">
-            <Link className="navbar-brand" to={'/sign-in'}>
-              positronX
-            </Link>
-            <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link className="nav-link" to={'/sign-in'}>
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to={'/sign-up'}>
-                    Sign up
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-
         <div className="auth-wrapper">
           <div className="auth-inner">
             <Routes>
-              <Route exact path="/" element={<Login />} />
-              <Route path="/sign-in" element={<Login />} />
-              <Route path="/sign-up" element={<SignUp />} />
+              <Route exact path="/" element={isLoggedIn == 'true' ?  <Home/> : <Login />} />
+              <Route path="/sign-in" element={isLoggedIn ?  <Home/> : <Login />}  />
+              <Route path="/sign-up" element={isLoggedIn ?  <Home/> : <SignUp />}  />
+              <Route path="/userDetails" element={isLoggedIn ? <UserDetails /> : <Login/>} />
+              <Route  path="/user/home" element={isLoggedIn ? <Home /> : <Login/>} />
+              <Route  path="/user/logs" element={isLoggedIn ?  <UserLog/> : <Login />} />
+              <Route  path="/user/prevlogs" element={isLoggedIn ? <PrevLog /> : <Login/>} />
             </Routes>
           </div>
         </div>
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
