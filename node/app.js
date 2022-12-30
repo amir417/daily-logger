@@ -7,100 +7,120 @@ app.use(cors());
 const bcrypt = require("bcryptjs");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
+require('dotenv').config();
 
-const jwt = require("jsonwebtoken");
+
+const dayLogRouter = require ('./routes/daylog')
+app.use ('/user/logs', dayLogRouter);
+const loginRouter = require ('./routes/login')
+app.use ('/login-user', loginRouter);
+const accountRouter = require ('./routes/account')
+app.use ('/userData', accountRouter);
+const registerRouter = require ('./routes/register')
+app.use ('/register', registerRouter);
+
+const jwt = require("jsonwebtoken"); 
 var nodemailer = require("nodemailer");
-
 const JWT_SECRET =
   "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
 
-const mongoUrl =
-  "mongodb://127.0.0.1:27017/conFusion";
+const port =  5000;
 
-mongoose
-  .connect(mongoUrl, {
-    useNewUrlParser: true,
-  })
-  .then(() => {
-    console.log("Connected to database");
-  })
-  .catch((e) => console.log(e));
 
-require("./userDetails");
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri);
+const connection = mongoose.connection;
+connection.once('open', () => {
+  console.log("MongoDB database connection established successfully");
+})
 
-const User = mongoose.model("UserInfo");
-app.post("/register", async (req, res) => {
-  const { fname, lname, email, password } = req.body;
-
-  const encryptedPassword = await bcrypt.hash(password, 10);
-  try {
-    const oldUser = await User.findOne({ email });
-
-    if (oldUser) {
-      return res.json({ error: "User Exists" });
-    }
-    await User.create({
-      fname,
-      lname,
-      email,
-      password: encryptedPassword,
-    });
-    res.send({ status: "ok" });
-  } catch (error) {
-    res.send({ status: "error" });
-  }
+app.listen(port, () => {
+    console.log(`Server is running on port: ${port}`);
 });
 
-app.post("/login-user", async (req, res) => {
-  const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.json({ error: "User Not found" });
-  }
-  if (await bcrypt.compare(password, user.password)) {
-    const token = jwt.sign({ email: user.email }, JWT_SECRET, 
-    //   expiresIn: 10,
-    );
 
-    if (res.status(201)) {
-      return res.json({ status: "ok", data: token });
-    } else {
-      return res.json({ error: "error" });
-    }
-  }
-  res.json({ status: "error", error: "InvAlid Password" });
-});
 
-app.post("/userData", async (req, res) => {
-  const { token } = req.body;
-  try {
-    const user = jwt.verify(token, JWT_SECRET, (err, res) => {
-      if (err) {
-        return "token expired111";
-      }
-      return res;
-    });
-    console.log(user);
-    if (user == "token expired") {
-      return res.send({ status: "error", data: "token expired222" });
-    }
 
-    const useremail = user.email;
-    User.findOne({ email: useremail })
-      .then((data) => {
-        res.send({ status: "ok", data: data });
-      })
-      .catch((error) => {
-        res.send({ status: "error", data: error });
-      });
-  } catch (error) {}
-});
 
-app.listen(5000, () => {
-  console.log("Server Started");
-});
 
+
+// const mongoUrl =
+//   "mongodb://127.0.0.1:27017/conFusion";
+
+// mongoose.connect(mongoUrl, {
+//     useNewUrlParser: true,
+//   })
+//   .then(() => {
+//     console.log("Connected to database");
+//   })
+//   .catch((e) => console.log(e));
+
+
+
+// app.listen(port, () => {
+//   console.log(`Amir Server Started at port ${port}`);
+// });
+
+
+// open('http://localhost:5000')
+
+// reload(app)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Unused code for now but I will make the routes for them later.
 app.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
   try {

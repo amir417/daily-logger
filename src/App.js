@@ -3,9 +3,9 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-import Login from "./components/login_component";
-import SignUp from "./components/signup_component";
-import UserDetails from "./components/userDetails";
+import Login from "./components/first-page/login_component";
+import SignUp from "./components/first-page/signup_component";
+import UserDetails from "./components/first-page/userDetails";
 import Home from "./components/user/home/home";
 import UserLog from "./components/user/userlog/logger";
 import Navbar from "./components/nav/nav";
@@ -24,7 +24,7 @@ function App() {
               <Route exact path="/" element={isLoggedIn == 'true' ?  <Home/> : <Login />} />
               <Route path="/sign-in" element={isLoggedIn ?  <Home/> : <Login />}  />
               <Route path="/sign-up" element={isLoggedIn ?  <Home/> : <SignUp />}  />
-              <Route path="/userDetails" element={isLoggedIn ? <UserDetails /> : <Login/>} />
+              <Route path="/userData" element={isLoggedIn ? <UserDetails /> : <Login/>} />
               <Route  path="/user/home" element={isLoggedIn ? <Home /> : <Login/>} />
               <Route  path="/user/logs" element={isLoggedIn ?  <UserLog/> : <Login />} />
               <Route  path="/user/prevlogs" element={isLoggedIn ? <PrevLog /> : <Login/>} />

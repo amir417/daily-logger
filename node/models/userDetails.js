@@ -12,4 +12,6 @@ const UserDetailsScehma = new mongoose.Schema(
   }
 );
 
-mongoose.model("UserInfo", UserDetailsScehma);
+const User = mongoose.model("UserInfo", UserDetailsScehma);
+
+module.exports = User;
