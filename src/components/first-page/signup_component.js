@@ -32,8 +32,15 @@ export default class SignUp extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
+        if (data.status == "ok"){
+        window.location.href = "./sign-in";
+      }
+      else if (data.error == "User Exists"){
+        alert ("User Exists. Please try again");
+      }
         console.log(data, "userRegister");
       });
+      
   }
   render() {
     return (

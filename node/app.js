@@ -18,6 +18,8 @@ const accountRouter = require ('./routes/account')
 app.use ('/userData', accountRouter);
 const registerRouter = require ('./routes/register')
 app.use ('/register', registerRouter);
+const prevlogRouter = require ('./routes/prevlog')
+app.use ('/user/prevlogs', prevlogRouter);
 
 const jwt = require("jsonwebtoken"); 
 var nodemailer = require("nodemailer");
