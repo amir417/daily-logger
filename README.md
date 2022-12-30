@@ -1,5 +1,6 @@
-# ReactLoginSignupUITemplate
+# Created for personal use of Amirreza Aazam
 
-Build React Login & Sign Up UI Template with Bootstrap 5 - Create React authentication system such as login and sign up template using Bootstrap.
+Link: https://daily-weblogger.netlify.app/
+(Please note that the Backend is not hosted. Thus you won't be able to login/sign-up. If I find it useful for others, I'll start hosting).
 
-[Build React Login & Sign Up UI Template with Bootstrap 5](https://www.positronx.io/build-react-login-sign-up-ui-template-with-bootstrap-4/)
+Please let me know if you want me to host this / have any questions: aazam.amirreza@gmail.com
