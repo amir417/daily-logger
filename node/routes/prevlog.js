@@ -13,7 +13,7 @@ prevlogRouter.route('/')
     try {
      
   
-      Log.findOne({ reflection: "BH, the morning was pretty nice and productive. Same for the night but honestly the gym took way too long. gotta see how i can make the gym more productive." })
+      Log.find()
         .then((data) => {
           res.send({ status: "ok", data: data });
         })

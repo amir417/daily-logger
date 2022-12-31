@@ -1,12 +1,14 @@
 import {React , Component } from 'react';
 import { useNavigate  } from "react-router-dom";
 
-function HandleClick() {
-  const navigate = useNavigate();
-  navigate ("/user/prevlogs");
-}
+// function HandleClick() {
+//   const navigate = useNavigate();
+//   navigate ("/user/prevlogs");
+// }
 
 export default class Logger extends Component {
+
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -107,9 +109,8 @@ render(){
         <br/><br/><input type="submit" value="Submit"/>
     </form>
     <br/>
-    <button onClick={HandleClick} className='btn btn-primary'>Click here to open all your previous logs</button>
+    <a href={"/user/prevlogs"} target="_blank" className='btn btn-primary'>Click here to open all your previous logs</a>
     </>
     )
 }
 }
-
