@@ -1,3 +1,4 @@
+ 
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -9,6 +10,7 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 require('dotenv').config();
 
+app.get('/', (req, res) => res.send("hello world"))
 
 const dayLogRouter = require ('./routes/daylog')
 app.use ('/user/logs', dayLogRouter);
@@ -207,3 +209,4 @@ app.post("/reset-password/:id/:token", async (req, res) => {
     res.json({ status: "Something Went Wrong" });
   }
 });
+
